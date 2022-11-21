@@ -18,17 +18,17 @@ export default function handler(
     });
   }
 
-  //   const { pathname, searchParams } = new URL(req.url)
-  //   const [, , username] = pathname.match(/^\/(api\/image|i)\/([^\/]+)/) || []
-  //   const dark = searchParams.has('dark')
-  //   const removeLink = searchParams.has('removeLink')
-  //   const noBorder = searchParams.has('noBorder')
+    const { pathname } = new URL(req.url)
+    const [, , username] = pathname.match(/^\/(api\/image|i)\/([^\/]+)/) || []
+    // const dark = searchParams.has('dark')
+    // const removeLink = searchParams.has('removeLink')
+    // const noBorder = searchParams.has('noBorder')
   
-  //   if (!username) {
-  //     return new Response(`No username defined`, {
-  //       status: 401,
-  //     });
-  //   }
+    if (!username) {
+      return new Response(`No username defined`, {
+        status: 401,
+      });
+    }
 
   return new ImageResponse(
     (
@@ -45,7 +45,7 @@ export default function handler(
         alignItems: 'center',
       }}
     >
-      Hey Thomas 👋, 🌎
+      Hey {username} 👋, 🌎
     </div>
     ),
     {
