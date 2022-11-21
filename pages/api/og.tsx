@@ -12,11 +12,11 @@ const IMAGE_HEIGHT = 628
 export default function handler(
   req: NextApiRequest,
 ) {
-  // if (req.url === undefined) {
-  //   return new Response(`No url defined`, {
-  //     status: 500,
-  //   });
-  // }
+  if (req.url === undefined) {
+    return new Response(`No url defined`, {
+      status: 500,
+    });
+  }
 
   //   const { pathname, searchParams } = new URL(req.url)
   //   const [, , username] = pathname.match(/^\/(api\/image|i)\/([^\/]+)/) || []
