@@ -19,12 +19,15 @@ export default function handler(
   }
 
   const { searchParams } = new URL(req.url)
-  const username = searchParams.get('username')
+  const hasUsername = searchParams.has('username');
+  const username = hasUsername
+    ? searchParams.get('username')?.slice(0, 100)
+    : 'jonaylor89';
   // const dark = searchParams.has('dark')
   // const removeLink = searchParams.has('removeLink')
   // const noBorder = searchParams.has('noBorder')
 
-  if (!username) {
+  if (!username || username === '') {
     return new Response(`No username defined`, {
       status: 401,
     });
