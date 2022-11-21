@@ -30,6 +30,8 @@ export default function handler(
       });
     }
 
+    try {
+
   return new ImageResponse(
     (
       <div
@@ -55,4 +57,11 @@ export default function handler(
       headers: { 'cache-control': 'public, max-age=60' },
     }
   )
+} catch (e: any) {
+  console.log(e)
+  return new Response('error generating the image', {
+    status: 500
+  })
+}
+
 }
