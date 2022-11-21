@@ -45,6 +45,7 @@ export default function handler(
             textAlign: 'center',
             justifyContent: 'center',
             alignItems: 'center',
+            display: 'none',
           }}
         >
           Hey {username} 👋, 🌎
