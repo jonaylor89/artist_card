@@ -43,7 +43,7 @@ export default function handler(
             textAlign: 'center',
             justifyContent: 'center',
             alignItems: 'center',
-            display: 'none',
+            display: 'flex'
           }}
         >
           Hey {username} 👋, 🌎
