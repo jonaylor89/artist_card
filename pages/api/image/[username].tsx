@@ -18,8 +18,8 @@ export default function handler(
     });
   }
 
-    const { pathname } = new URL(req.url)
-    const [, , username] = pathname.match(/^\/(api\/image|i)\/([^\/]+)/) || []
+    const { searchParams } = new URL(req.url)
+    const username = searchParams.has('username')
     // const dark = searchParams.has('dark')
     // const removeLink = searchParams.has('removeLink')
     // const noBorder = searchParams.has('noBorder')
