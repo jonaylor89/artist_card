@@ -39,6 +39,13 @@ export default function handler(
     return errorResponse('username cannot be empty')
   }
 
+  console.log('new image: ', JSON.stringify({
+    username,
+    dark,
+    removeLink,
+    noBorder,
+  }))
+
   const fakeUser = {
     artistName: 'Johannes',
     handle: username,
