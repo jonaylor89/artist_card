@@ -29,7 +29,14 @@ export default async function handler(req: NextRequest) {
     };
 
     // hit Audius API
-    const res = await fetch(`https://discoveryprovider3.audius.co/users?handle=thomasl04&?app_name=${APP_NAME}`, {
+    // hit Audius API
+    const sample = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)]
+    const host = await fetch('https://api.audius.co')
+      .then(r => r.json())
+      .then(j => j.data)
+      .then(d => sample(d))
+
+    const res = await fetch(`${host}/users?handle=${username}`, {
         method: 'GET',
         headers: headers
     })
