@@ -23,7 +23,7 @@ export default function handler(
   const hasNoBorder = searchParams.has('noBorder')
 
   const username = hasUsername
-    ? searchParams.get('username')?.slice(0, 100)
+    ? (searchParams.get('username') || 'jonaylor89')
     : 'jonaylor89';
   const dark = hasDark
     ? JSON.parse(searchParams.get('dark') || 'false')

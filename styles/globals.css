@@ -36,6 +36,8 @@ input[type="checkbox"] {
 
   display: grid;
   place-content: center;
+
+  cursor: pointer;
 }
 
 input[type="checkbox"]::before {
@@ -53,6 +55,11 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked::before {
   transform: scale(1);
+}
+
+input[type="checkbox"]:focus {
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
 }
 
 input[type="checkbox"]:focus {

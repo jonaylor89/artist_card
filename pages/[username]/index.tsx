@@ -143,10 +143,9 @@ function imageUrlForUsername(
   dark: boolean,
   removeLink: boolean
 ) {
-  const params = [dark && 'dark', removeLink && 'removeLink'].filter(Boolean)
   return `${process.env.NEXT_PUBLIC_BASE_URL}/api/og?username=${encodeURIComponent(
     username
-  )}${params.length > 0 ? `?${params.join('&')}` : ''}`
+  )}&dark=${encodeURIComponent(dark)}&removeLink=${encodeURIComponent(removeLink)}`
 }
 
 function imageAltForUsername(username: string) {
