@@ -16,26 +16,30 @@ export interface User {
 export default async function handle(req: NextRequest) {
     // get username from path
     const { pathname } = new URL(req.url)
+    console.log(req)
     const [, username] = pathname.match(/^\/api\/gh\/([^\/]+)/) || []
-    console.log(username)
 
     const headers = {
         'Accept':'application/json'
       };
 
     // hit Audius API
-    const res = await fetch(`https://audius-discovery-9.cultur3stake.com/v1/users/9l9bo`, {
+    const res = await fetch(`https://discoveryprovider3.audius.co/users?handle=thomasl04`, {
         method: 'GET',
         headers: headers
     })
 
     if (res.status === 200) {
         const user = await res.json()
-        console.log(user)
+        //console.log(user.data[0])
         return NextResponse.json(
             {
-                name: user.data.name,
-                followee_count: user.data.followee_count
+                name: user.data[0].name,
+                handle: user.data[0].handle,
+                location: user.data[0].location,
+                followee_count: user.data[0].followee_count,
+                follower_count: user.data[0].follower_count,
+                profile_picture: user.data[0].profile_picture
             }
         )
     }
