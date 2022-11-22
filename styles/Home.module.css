@@ -28,9 +28,11 @@
   flex-grow: 1;
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
+.title span {
+  color: #cc0fe0;
+  background: -webkit-linear-gradient(#7e1bcc, #cc0fe0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .title a:hover,
@@ -88,8 +90,8 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: #cc0fe0;
+  border-color: #cc0fe0;
 }
 
 .card h2 {
