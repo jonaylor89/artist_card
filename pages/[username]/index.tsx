@@ -52,10 +52,13 @@ export default function Home() {
                 type="text"
                 className={styles.usernameTextInput}
                 value={tempUsername}
+                placeholder=""
                 onChange={(e) => setTempUsername(e.target.value)}
                 required
               />
-              <button type="submit" className={styles.generateButton}>Generate</button>
+              <button type="submit" className={styles.generateButton}>
+                <Image src="/image-icon.svg" color='white' alt="Image Icon" width={24} height={24} />
+              </button>
             </div>
           </form>
         </div>

@@ -24,12 +24,27 @@
   font: 1.25rem sans-serif;
 }
 
-.usernameTextInput {
-  outline: #cc0fe0;
+.generateButton {
+  background: -webkit-linear-gradient(#7e1bcc, #cc0fe0);
+  margin: 0.2rem 0.2rem;
+  padding: 0.8rem 0.8rem;
+  margin-left: 1em;;
+  text-align: left;
+  color: inherit;
+  background-color: black;
+  text-decoration: none;
+  border: 0px solid #eaeaea;
+  border-radius: 5px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  max-width: 300px;
 }
 
-.generateButton {
-  outline: #cc0fe0;
+.generateButton:hover,
+.generateButton:focus,
+.generateButton:active {
+  color: #cc0fe0;
+  border-color: #cc0fe0;
+  outline: none;
 }
 
 .configurations {
@@ -102,17 +117,6 @@
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
-}
-
-.title,
-.description {
-  text-align: center;
-}
-
-.description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
 }
 
 .code {
