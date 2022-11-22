@@ -55,7 +55,6 @@ export default async function handler(req: NextRequest) {
                 location: user.location,
                 followee_count: user.followee_count,
                 follower_count: user.follower_count,
-                profile_picture: user.profile_picture,
                 avatar_url: avatarURL
             }
         )

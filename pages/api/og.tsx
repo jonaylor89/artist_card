@@ -8,8 +8,9 @@ export const config = {
 
 const IMAGE_WIDTH = 1200
 const IMAGE_HEIGHT = 628
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
 ) {
   if (req.url === undefined) {
@@ -58,6 +59,13 @@ export default function handler(
     is_verified: false,
     location: "BCN",
     avatar_url: "https://creatornode2.audius.co/ipfs/QmUkJ9mZtdc63mneA31hoWRn3ZfazqSaXYE76Qc5ywCVSG/480x480.jpg",
+  }
+
+  const res = await fetch(`${baseUrl}/api/audius?username=${username}`)
+  
+  if (res.status === 200) {
+    const user = await res.json()
+    console.log(user)
   }
 
   try {
