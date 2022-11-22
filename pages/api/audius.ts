@@ -42,16 +42,21 @@ export default async function handler(req: NextRequest) {
     })
 
     if (res.status === 200) {
-        const user = await res.json()
+        const user = (await res.json()).data[0]
+        const creatorNode = user.creator_node_endpoint.split(",")[0]
+        const picSizes = user.profile_picture_sizes
+        const avatarURL = `${creatorNode}/content/${picSizes}/480x480.jpg`
+        
         //console.log(user.data[0])
         return NextResponse.json(
             {
-                name: user.data[0].name,
-                handle: user.data[0].handle,
-                location: user.data[0].location,
-                followee_count: user.data[0].followee_count,
-                follower_count: user.data[0].follower_count,
-                profile_picture: user.data[0].profile_picture
+                name: user.name,
+                handle: user.handle,
+                location: user.location,
+                followee_count: user.followee_count,
+                follower_count: user.follower_count,
+                profile_picture: user.profile_picture,
+                avatar_url: avatarURL
             }
         )
     }
