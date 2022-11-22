@@ -6,6 +6,42 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+input[type="text"] {
+  font: 1.25rem / 1.5 sans-serif;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+}
+
+input[type="checkbox"] {
+  height: 1.5em;
+  width: 1.5em;
+  vertical-align: middle;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px #cc0fe0;;
+}
+
+button[type="submit"] {
+  background-color: #cc0fe0;;
+  color: white;
+}
+
+button[type="submit"]:hover {
+  background-color: #cc0fe0;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px black;
+}
+
 a {
   color: inherit;
   text-decoration: none;

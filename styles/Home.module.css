@@ -12,6 +12,55 @@
   align-items: center;
 }
 
+.usernameForm {
+  padding: 3rem;
+}
+
+.largeLabel {
+  vertical-align: middle;
+  display: inline-block;
+  margin-left: 0.25rem;
+  margin-right: 1.5rem;
+  font: 1.25rem sans-serif;
+}
+
+.usernameTextInput {
+  outline: #cc0fe0;
+}
+
+.generateButton {
+  outline: #cc0fe0;
+}
+
+.configurations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.downloadButton {
+  margin: 1rem;
+  padding: 0.4rem 0.8rem;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  max-width: 300px;
+}
+
+.downloadButton:hover,
+.downloadButton:focus,
+.downloadButton:active {
+  color: #cc0fe0;
+  border-color: #cc0fe0;
+}
+
+.copyButton {
+
+}
+
 .footer {
   display: flex;
   flex: 1;
@@ -33,12 +82,6 @@
   background: -webkit-linear-gradient(#7e1bcc, #cc0fe0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
 }
 
 .title {

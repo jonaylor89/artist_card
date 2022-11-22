@@ -5,76 +5,134 @@ import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 
 import styles from '../../styles/Home.module.css'
-import { pageTitle } from '../seo-headers'
+import { pageTitle, SeoHeaders } from '../seo-headers'
 import { randomTopUsername } from '../top-users'
+import { CopyInput } from './copy-input'
+
 
 export default function Home() {
-    const [username, setUsername] = useUsername()
-    // const [dark, setDark] = useState(false)
-    // const [removeLink, setRemoveLink] = useState(false)
-    const [tempUsername, setTempUsername] = useState(username)
-    const [isBrowser, setIsBrowser] = useState(false)
+  const [username, setUsername] = useUsername()
+  const [dark, setDark] = useState(false)
+  const [removeLink, setRemoveLink] = useState(false)
+  const [tempUsername, setTempUsername] = useState(username)
+  const [isBrowser, setIsBrowser] = useState(false)
 
-    useEffect(() => {
-        setIsBrowser(true)
-    }, [])
+  useEffect(() => {
+    setIsBrowser(true)
+  }, [])
 
-    useEffect(() => {
-        if (!username) {
-            const randomUser = randomTopUsername()
-            setUsername(randomUser, false)
-            setTempUsername(randomUser)
-        }
-    }, [setUsername, username])
+  useEffect(() => {
+    if (!username) {
+      const randomUser = randomTopUsername()
+      setUsername(randomUser, false)
+      setTempUsername(randomUser)
+    }
+  }, [setUsername, username])
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>Artist Card</title>
-        <meta name="description" content="Generate a unique artist business card" />
-        <link rel="icon" href="/favicon.ico" />
+        <SeoHeaders username={username} />
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Create your unique <span>Card!</span>
+          Create your unique <span>Artist Card!</span>
         </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
+        <div className={styles.usernameForm}>
+          <form onSubmit={(event) => {
+            event.preventDefault()
+            setUsername(tempUsername)
+          }}>
+            <label htmlFor="username" className={styles.largeLabel}>Your Audius handle:</label>
+            <div>
+              <input
+                id="username"
+                type="text"
+                className={styles.usernameTextInput}
+                value={tempUsername}
+                onChange={(e) => setTempUsername(e.target.value)}
+                required
+              />
+              <button type="submit" className={styles.generateButton}>Generate</button>
+            </div>
+          </form>
+        </div>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+        <div className={styles.configurations}>
+          <div className="flex space-x-6">
+            <div className="flex space-x-2 items-center">
+              <input
+                id="dark"
+                type="checkbox"
+                checked={dark}
+                onChange={(e) => setDark(e.target.checked)}
+              />
+              <label htmlFor="dark">Dark mode</label>
+            </div>
+            <div className="flex space-x-2 items-center">
+              <input
+                id="removeLink"
+                type="checkbox"
+                checked={removeLink}
+                onChange={(e) => setRemoveLink(e.target.checked)}
+              />
+              <label htmlFor="removeLink">
+                Remove <strong>audius.co</strong> link
+              </label>
+            </div>
+          </div>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+          {isBrowser && (
+            <div className="relative">
+              <div className="z-0 absolute inset-0 flex justify-center items-center text-slate-400 text-sm">
+                Loading… (can take a few seconds)
+              </div>
+              <div className="z-10 relative">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: htmlCodeForUserName(username, dark, removeLink),
+                  }}
+                />
+              </div>
+            </div>
+          )}
 
           <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
+            href={imageUrlForUsername(username, dark, removeLink)}
+            download={`${username}-audius-business-card.png`}
+            className={styles.downloadButton}
           >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
+            Download
           </a>
+        </div>
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div className="flex flex-col space-y-4 w-full max-w-md p-2">
+          <div className="flex flex-col space-y-1">
+            <label htmlFor="imageUrl">Image URL:</label>
+            <CopyInput
+              id="imageUrl"
+              readOnly
+              value={imageUrlForUsername(username, dark, removeLink)}
+            />
+          </div>
+          <div className="flex flex-col space-y-1">
+            <label htmlFor="htmlCode">Embed HTML code:</label>
+            <CopyInput
+              id="htmlCode"
+              readOnly
+              value={htmlCodeForUserName(username, dark, removeLink)}
+            />
+          </div>
+          <div className="flex flex-col space-y-1 items-stretch">
+            <label htmlFor="markdownCode">Embed Markdown code:</label>
+            <CopyInput
+              id="markdownCode"
+              readOnly
+              value={markdownCodeForUserName(username, dark, removeLink)}
+            />
+          </div>
         </div>
       </main>
 
@@ -95,69 +153,72 @@ export default function Home() {
 }
 
 function imageUrlForUsername(
-    username: string,
-    dark: boolean,
-    removeLink: boolean
+  username: string,
+  dark: boolean,
+  removeLink: boolean
 ) {
-    const params = [dark && 'dark', removeLink && 'removeLink'].filter(Boolean)
-    return `${process.env.NEXT_PUBLIC_BASE_URL}/i/${encodeURIComponent(
-        username
-    )}${params.length > 0 ? `?${params.join('&')}` : ''}`
+  const params = [dark && 'dark', removeLink && 'removeLink'].filter(Boolean)
+  return `${process.env.NEXT_PUBLIC_BASE_URL}/api/og?username=${encodeURIComponent(
+    username
+  )}${params.length > 0 ? `?${params.join('&')}` : ''}`
 }
 
 function imageAltForUsername(username: string) {
-    return `${username}’s Audius image`
+  return `${username}’s Audius image`
 }
 
 function htmlCodeForUserName(
-    username: string,
-    dark: boolean,
-    removeLink: boolean
+  username: string,
+  dark: boolean,
+  removeLink: boolean
 ) {
-    const imageUrl = imageUrlForUsername(username, dark, removeLink)
-    const imageAlt = imageAltForUsername(username)
-    return `<a href="https://audius.co/${username}" target="_blank" rel="noopener noreferrer"><img src="${imageUrl}" alt="${imageAlt}" width="600" height="314" />`
+  const imageUrl = imageUrlForUsername(username, dark, removeLink)
+  const imageAlt = imageAltForUsername(username)
+  return `<a href="https://audius.co/${username}" target="_blank" rel="noopener noreferrer"><img src="${imageUrl}" alt="${imageAlt}" width="600" height="314" />`
 }
 
 function markdownCodeForUserName(
-    username: string,
-    dark: boolean,
-    removeLink: boolean
+  username: string,
+  dark: boolean,
+  removeLink: boolean
 ) {
-    const imageUrl = imageUrlForUsername(username, dark, removeLink)
-    const imageAlt = imageAltForUsername(username)
-    return `![${imageAlt}](${imageUrl})`
+  const imageUrl = imageUrlForUsername(username, dark, removeLink)
+  const imageAlt = imageAltForUsername(username)
+  return `![${imageAlt}](${imageUrl})`
 }
 
 function useUsername(): [
-    string,
-    (username: string, updateUrl?: boolean) => void
+  string,
+  (username: string, updateUrl?: boolean) => void
 ] {
-    const router = useRouter()
-    const pathname = usePathname()!
-    const searchParams = useSearchParams()!
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
-    const pathUser = pathname.replace(/^\//, '')
-    const searchUser = searchParams.get('user')
+  const pathUser = pathname?.replace(/^\//, '')
+  const searchUser = searchParams.get('user')
 
-    const [user, setUser] = useState(pathUser || searchUser || '')
+  console.log('pathname ', pathname?.toString())
+  console.log('searchparams ', searchParams.toString())
 
-    const setUsername = useCallback(
-        (username: string, updateUrl = true) => {
-            if (updateUrl) {
-                router.replace(`/${username}`)
-                document.title = pageTitle(username)
-            }
-            setUser(username)
-        },
-        [router]
-    )
+  const [user, setUser] = useState(pathUser || searchUser || '')
 
-    useEffect(() => {
-        if (searchUser && searchUser !== pathUser) {
-            setUsername(searchUser)
-        }
-    }, [pathUser, searchUser, setUsername])
+  const setUsername = useCallback(
+    (username: string, updateUrl = true) => {
+      if (updateUrl) {
+        router.replace(`/${username}`)
+        document.title = pageTitle(username)
+      }
+      setUser(username)
+    },
+    [router]
+  )
 
-    return [user, setUsername]
+  useEffect(() => {
+    if (searchUser && searchUser !== pathUser) {
+      setUsername(searchUser)
+    }
+  }, [pathUser, searchUser, setUsername])
+
+  return [user, setUsername]
 }
