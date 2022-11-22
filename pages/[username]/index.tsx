@@ -4,7 +4,6 @@ import { useState } from 'react'
 
 import styles from '../../styles/Home.module.css'
 import SeoHeaders from '../seo-headers'
-import CopyInput from './copy-input'
 import Output from './output'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL

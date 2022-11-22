@@ -1,5 +1,5 @@
 
-import styles from '../../styles.Home.module.css'
+import styles from '../../styles/Home.module.css'
 import CopyInput from './copy-input';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
