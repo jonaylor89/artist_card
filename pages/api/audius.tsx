@@ -13,11 +13,14 @@ export interface User {
     following_count: number
 }
 
-export default async function handle(req: NextRequest) {
+export default async function handler(req: NextRequest) {
     // get username from path
-    const { pathname } = new URL(req.url)
-    console.log(req)
-    const [, username] = pathname.match(/^\/api\/gh\/([^\/]+)/) || []
+    const { searchParams } = new URL(req.url)
+    const hasUsername = searchParams.has('username')
+
+    const username = hasUsername
+    ? (searchParams.get('username') || 'jonaylor89')
+    : 'jonaylor89';
 
     const headers = {
         'Accept':'application/json'
