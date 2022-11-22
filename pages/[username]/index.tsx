@@ -1,13 +1,11 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { usePathname, useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import styles from '../../styles/Home.module.css'
 import SeoHeaders from '../seo-headers'
-import { pageTitle } from '../seo-headers'
 import CopyInput from './copy-input'
+import Output from './output'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -77,49 +75,7 @@ export default function Home() {
         </div>
 
         {username && (
-          <div className="relative">
-            <div className="z-0 absolute inset-0 flex justify-center items-center text-slate-400 text-sm">
-              Loading… (can take a few seconds)
-            </div>
-            <div className="z-10 relative">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: htmlCodeForUserName(username, dark, removeLink),
-                }} />
-            </div>
-
-            <a
-              href={imageUrlForUsername(username, dark, removeLink)}
-              download={`${username}-audius-business-card.png`}
-              className={styles.downloadButton}
-            >
-              Download
-            </a>
-
-            <div className={styles.outputLinks}>
-              <div className={styles.outputLink}>
-                <label htmlFor="imageUrl">Image URL:</label>
-                <CopyInput
-                  id="imageUrl"
-                  readOnly
-                  value={imageUrlForUsername(username, dark, removeLink)} />
-              </div>
-              <div className={styles.outputLink}>
-                <label htmlFor="htmlCode">Embed HTML code:</label>
-                <CopyInput
-                  id="htmlCode"
-                  readOnly
-                  value={htmlCodeForUserName(username, dark, removeLink)} />
-              </div>
-              <div className={styles.outputLink}>
-                <label htmlFor="markdownCode">Embed Markdown code:</label>
-                <CopyInput
-                  id="markdownCode"
-                  readOnly
-                  value={markdownCodeForUserName(username, dark, removeLink)} />
-              </div>
-            </div>
-          </div>
+          <Output username={username} dark={dark} removeLink={removeLink} />
         )}
       </main>
 
