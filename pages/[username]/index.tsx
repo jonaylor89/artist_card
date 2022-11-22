@@ -15,19 +15,6 @@ export default function Home() {
   const [dark, setDark] = useState(false)
   const [removeLink, setRemoveLink] = useState(false)
   const [tempUsername, setTempUsername] = useState(username)
-  // const [isBrowser, setIsBrowser] = useState(false)
-
-  // useEffect(() => {
-  //   setIsBrowser(true)
-  // }, [])
-
-  // useEffect(() => {
-  //   if (!username) {
-  //     const randomUser = randomTopUsername()
-  //     setUsername(randomUser, false)
-  //     setTempUsername(randomUser)
-  //   }
-  // }, [setUsername, username])
 
   return (
     <div className={styles.container}>
