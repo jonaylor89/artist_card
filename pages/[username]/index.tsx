@@ -15,19 +15,19 @@ export default function Home() {
   const [dark, setDark] = useState(false)
   const [removeLink, setRemoveLink] = useState(false)
   const [tempUsername, setTempUsername] = useState(username)
-  const [isBrowser, setIsBrowser] = useState(false)
+  // const [isBrowser, setIsBrowser] = useState(false)
 
-  useEffect(() => {
-    setIsBrowser(true)
-  }, [])
+  // useEffect(() => {
+  //   setIsBrowser(true)
+  // }, [])
 
-  useEffect(() => {
-    if (!username) {
-      const randomUser = randomTopUsername()
-      setUsername(randomUser, false)
-      setTempUsername(randomUser)
-    }
-  }, [setUsername, username])
+  // useEffect(() => {
+  //   if (!username) {
+  //     const randomUser = randomTopUsername()
+  //     setUsername(randomUser, false)
+  //     setTempUsername(randomUser)
+  //   }
+  // }, [setUsername, username])
 
   return (
     <div className={styles.container}>
@@ -83,57 +83,53 @@ export default function Home() {
               </label>
             </div>
           </div>
+        </div>
 
-          {isBrowser && (
-            <div className="relative">
-              <div className="z-0 absolute inset-0 flex justify-center items-center text-slate-400 text-sm">
-                Loading… (can take a few seconds)
+        {username && (
+          <div className="relative">
+            <div className="z-0 absolute inset-0 flex justify-center items-center text-slate-400 text-sm">
+              Loading… (can take a few seconds)
+            </div>
+            <div className="z-10 relative">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: htmlCodeForUserName(username, dark, removeLink),
+                }} />
+            </div>
+
+            <a
+              href={imageUrlForUsername(username, dark, removeLink)}
+              download={`${username}-audius-business-card.png`}
+              className={styles.downloadButton}
+            >
+              Download
+            </a>
+
+            <div className={styles.outputLinks}>
+              <div className={styles.outputLink}>
+                <label htmlFor="imageUrl">Image URL:</label>
+                <CopyInput
+                  id="imageUrl"
+                  readOnly
+                  value={imageUrlForUsername(username, dark, removeLink)} />
               </div>
-              <div className="z-10 relative">
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: htmlCodeForUserName(username, dark, removeLink),
-                  }}
-                />
+              <div className={styles.outputLink}>
+                <label htmlFor="htmlCode">Embed HTML code:</label>
+                <CopyInput
+                  id="htmlCode"
+                  readOnly
+                  value={htmlCodeForUserName(username, dark, removeLink)} />
+              </div>
+              <div className={styles.outputLink}>
+                <label htmlFor="markdownCode">Embed Markdown code:</label>
+                <CopyInput
+                  id="markdownCode"
+                  readOnly
+                  value={markdownCodeForUserName(username, dark, removeLink)} />
               </div>
             </div>
-          )}
-
-          <a
-            href={imageUrlForUsername(username, dark, removeLink)}
-            download={`${username}-audius-business-card.png`}
-            className={styles.downloadButton}
-          >
-            Download
-          </a>
-        </div>
-
-        <div className={styles.outputLinks}>
-          <div className={styles.outputLink}>
-            <label htmlFor="imageUrl">Image URL:</label>
-            <CopyInput
-              id="imageUrl"
-              readOnly
-              value={imageUrlForUsername(username, dark, removeLink)}
-            />
           </div>
-          <div className={styles.outputLink}>
-            <label htmlFor="htmlCode">Embed HTML code:</label>
-            <CopyInput
-              id="htmlCode"
-              readOnly
-              value={htmlCodeForUserName(username, dark, removeLink)}
-            />
-          </div>
-          <div className={styles.outputLink}>
-            <label htmlFor="markdownCode">Embed Markdown code:</label>
-            <CopyInput
-              id="markdownCode"
-              readOnly
-              value={markdownCodeForUserName(username, dark, removeLink)}
-            />
-          </div>
-        </div>
+        )}
       </main>
 
       <footer className={styles.footer}>
