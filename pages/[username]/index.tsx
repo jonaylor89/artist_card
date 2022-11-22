@@ -9,9 +9,10 @@ import SeoHeaders from '../seo-headers'
 import { pageTitle } from '../seo-headers'
 import CopyInput from './copy-input'
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 export default function Home() {
-  const [username, setUsername] = useUsername()
+  const [username, setUsername] = useState('')
   const [dark, setDark] = useState(false)
   const [removeLink, setRemoveLink] = useState(false)
   const [tempUsername, setTempUsername] = useState(username)
@@ -143,7 +144,7 @@ function imageUrlForUsername(
   dark: boolean,
   removeLink: boolean
 ) {
-  return `${process.env.NEXT_PUBLIC_BASE_URL}/api/og?username=${encodeURIComponent(
+  return `${baseUrl}/api/og?username=${encodeURIComponent(
     username
   )}&dark=${encodeURIComponent(dark)}&removeLink=${encodeURIComponent(removeLink)}`
 }
@@ -159,7 +160,7 @@ function htmlCodeForUserName(
 ) {
   const imageUrl = imageUrlForUsername(username, dark, removeLink)
   const imageAlt = imageAltForUsername(username)
-  return `<a href="https://audius.co/${username}" target="_blank" rel="noopener noreferrer"><img src="${imageUrl}" alt="${imageAlt}" width="600" height="314" />`
+  return `<a href="${imageUrl}" target="_blank" rel="noopener noreferrer"><img src="${imageUrl}" alt="${imageAlt}" width="600" height="314" />`
 }
 
 function markdownCodeForUserName(
@@ -170,40 +171,4 @@ function markdownCodeForUserName(
   const imageUrl = imageUrlForUsername(username, dark, removeLink)
   const imageAlt = imageAltForUsername(username)
   return `![${imageAlt}](${imageUrl})`
-}
-
-function useUsername(): [
-  string,
-  (username: string, updateUrl?: boolean) => void
-] {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-
-  const pathUser = pathname?.replace(/^\//, '')
-  const searchUser = searchParams.get('user')
-
-  console.log('pathname ', pathname?.toString())
-  console.log('searchparams ', searchParams.toString())
-
-  const [user, setUser] = useState(pathUser || searchUser || '')
-
-  const setUsername = useCallback(
-    (username: string, updateUrl = true) => {
-      if (updateUrl) {
-        router.replace(`/${username}`)
-        document.title = pageTitle(username)
-      }
-      setUser(username)
-    },
-    [router]
-  )
-
-  useEffect(() => {
-    if (searchUser && searchUser !== pathUser) {
-      setUsername(searchUser)
-    }
-  }, [pathUser, searchUser, setUsername])
-
-  return [user, setUsername]
 }
