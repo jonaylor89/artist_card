@@ -38,6 +38,10 @@
   align-items: center;
 }
 
+.configurationItem {
+  padding: 0 1rem;
+}
+
 .downloadButton {
   margin: 1rem;
   padding: 0.4rem 0.8rem;
@@ -57,8 +61,18 @@
   border-color: #cc0fe0;
 }
 
-.copyButton {
+.row {
+  display: flex;
+  flex-direction: row;
+}
 
+.outputLinks {
+  display: flex;
+  flex-direction: column;
+}
+
+.outputLink {
+  margin: 1rem 0rem;
 }
 
 .footer {

@@ -46,7 +46,7 @@ export default function Home() {
             setUsername(tempUsername)
           }}>
             <label htmlFor="username" className={styles.largeLabel}>Your Audius handle:</label>
-            <div>
+            <div className={styles.row}>
               <input
                 id="username"
                 type="text"
@@ -61,8 +61,8 @@ export default function Home() {
         </div>
 
         <div className={styles.configurations}>
-          <div className="flex space-x-6">
-            <div className="flex space-x-2 items-center">
+          <div className={styles.row}>
+            <div className={styles.configurationItem}>
               <input
                 id="dark"
                 type="checkbox"
@@ -71,7 +71,7 @@ export default function Home() {
               />
               <label htmlFor="dark">Dark mode</label>
             </div>
-            <div className="flex space-x-2 items-center">
+            <div className={styles.configurationItem}>
               <input
                 id="removeLink"
                 type="checkbox"
@@ -108,8 +108,8 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="flex flex-col space-y-4 w-full max-w-md p-2">
-          <div className="flex flex-col space-y-1">
+        <div className={styles.outputLinks}>
+          <div className={styles.outputLink}>
             <label htmlFor="imageUrl">Image URL:</label>
             <CopyInput
               id="imageUrl"
@@ -117,7 +117,7 @@ export default function Home() {
               value={imageUrlForUsername(username, dark, removeLink)}
             />
           </div>
-          <div className="flex flex-col space-y-1">
+          <div className={styles.outputLink}>
             <label htmlFor="htmlCode">Embed HTML code:</label>
             <CopyInput
               id="htmlCode"
@@ -125,7 +125,7 @@ export default function Home() {
               value={htmlCodeForUserName(username, dark, removeLink)}
             />
           </div>
-          <div className="flex flex-col space-y-1 items-stretch">
+          <div className={styles.outputLink}>
             <label htmlFor="markdownCode">Embed Markdown code:</label>
             <CopyInput
               id="markdownCode"

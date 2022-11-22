@@ -13,6 +13,7 @@ input[type="text"] {
   width: 100%;
   padding: 0.5rem 0.75rem;
   border-radius: 10px;
+  background-color: black;
 }
 
 input[type="checkbox"] {
@@ -24,22 +25,29 @@ input[type="checkbox"] {
 input:focus,
 select:focus,
 textarea:focus {
+  outline: auto;
+  border-color: #cc0fe0;
+}
+
+button {
+  margin: 1rem;
+  padding: 0.4rem 0.8rem;
+  text-align: left;
+  color: inherit;
+  background-color: black;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  max-width: 300px;
+}
+
+button:hover,
+button:focus,
+button:active {
+  color: #cc0fe0;
+  border-color: #cc0fe0;
   outline: none;
-  box-shadow: 0 0 0 4px #cc0fe0;;
-}
-
-button[type="submit"] {
-  background-color: #cc0fe0;;
-  color: white;
-}
-
-button[type="submit"]:hover {
-  background-color: #cc0fe0;
-}
-
-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px black;
 }
 
 a {
