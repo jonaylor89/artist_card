@@ -33,11 +33,11 @@ export default async function handler(req: NextRequest) {
     // hit Audius API
     const sample = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)]
     const host = await fetch('https://api.audius.co')
-      .then(r => r.json())
-      .then(j => j.data)
-      .then(d => sample(d))
+        .then(r => r.json())
+        .then(j => j.data)
+        .then(d => sample(d))
 
-    const res = await fetch(`${host}/users?handle=${username}`, {
+    const res = await fetch(`${host}/users?handle=${username}?app_name=${APP_NAME}`, {
         method: 'GET',
         headers: headers
     })
@@ -47,7 +47,7 @@ export default async function handler(req: NextRequest) {
         const creatorNode = user.creator_node_endpoint.split(",")[0]
         const picSizes = user.profile_picture_sizes
         const avatarURL = `${creatorNode}/content/${picSizes}/480x480.jpg`
-        
+
         //console.log(user.data[0])
         return NextResponse.json(
             {
