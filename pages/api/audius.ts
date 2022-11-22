@@ -14,6 +14,7 @@ export interface User {
 }
 
 const APP_NAME = 'artist_card'
+const defaultAvatarUrl = 'https://images.unsplash.com/photo-1493836512294-502baa1986e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1780&q=80'
 
 export default async function handler(req: NextRequest) {
     // get username from path
@@ -50,13 +51,35 @@ export default async function handler(req: NextRequest) {
         //console.log(user.data[0])
         return NextResponse.json(
             {
-                name: user.name,
-                handle: user.handle,
-                location: user.location,
-                followee_count: user.followee_count,
-                follower_count: user.follower_count,
-                avatar_url: avatarURL
+                name: user.name || '',
+                bio: user.bio || '',
+                handle: user.handle || '',
+                track_count: user.track_count || 0,
+                location: user.location || '',
+                followee_count: user.followee_count || 0,
+                follower_count: user.follower_count || 0,
+                avatar_url: avatarURL || defaultAvatarUrl,
+                supporter_count: user.supporter_count || 0,
+                supporting_count: user.supporting_count || 0,
+                created_at: user.created_at || new Date().toISOString(),
+                is_verified: user.is_verified || false
             }
         )
     }
 }
+
+/*
+const fakeUser = {
+    artistName: 'Johannes',
+    handle: username,
+    bio: 'da beep boops',
+    trackCount: 15,
+    followers: 5_000,
+    supporters: 8,
+    supporting: 8,
+    created_at: "2021-08-19T14:03:15 Z",
+    is_verified: false,
+    location: "BCN",
+    avatar_url: "https://creatornode2.audius.co/ipfs/QmUkJ9mZtdc63mneA31hoWRn3ZfazqSaXYE76Qc5ywCVSG/480x480.jpg",
+  }
+*/
