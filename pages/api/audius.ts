@@ -3,7 +3,7 @@ import internal from 'stream'
 
 export const config = {
     runtime: 'experimental-edge',
-  }
+}
 
 export interface User {
     name: string,
@@ -13,21 +13,23 @@ export interface User {
     following_count: number
 }
 
+const APP_NAME = 'artist_card'
+
 export default async function handler(req: NextRequest) {
     // get username from path
     const { searchParams } = new URL(req.url)
     const hasUsername = searchParams.has('username')
 
     const username = hasUsername
-    ? (searchParams.get('username') || 'jonaylor89')
-    : 'jonaylor89';
+        ? (searchParams.get('username') || 'jonaylor89')
+        : 'jonaylor89';
 
     const headers = {
-        'Accept':'application/json'
-      };
+        'Accept': 'application/json'
+    };
 
     // hit Audius API
-    const res = await fetch(`https://discoveryprovider3.audius.co/users?handle=thomasl04`, {
+    const res = await fetch(`https://discoveryprovider3.audius.co/users?handle=thomasl04&?app_name=${APP_NAME}`, {
         method: 'GET',
         headers: headers
     })
