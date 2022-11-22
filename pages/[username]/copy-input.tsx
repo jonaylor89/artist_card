@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from '../../styles/Home.module.css'
 
-export function CopyInput(props: JSX.IntrinsicElements['input']) {
+export default function CopyInput(props: JSX.IntrinsicElements['input']) {
   const [buttonText, setButtonText] = useState('Copy')
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 

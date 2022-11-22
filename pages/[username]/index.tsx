@@ -5,9 +5,9 @@ import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 
 import styles from '../../styles/Home.module.css'
-import { pageTitle, SeoHeaders } from '../seo-headers'
-import { randomTopUsername } from '../top-users'
-import { CopyInput } from './copy-input'
+import SeoHeaders from '../seo-headers'
+import { pageTitle } from '../seo-headers'
+import CopyInput from './copy-input'
 
 
 export default function Home() {

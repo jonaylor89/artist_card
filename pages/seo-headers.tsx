@@ -2,7 +2,7 @@ interface Props {
     username?: string
   }
   
-  export function SeoHeaders({ username }: Props) {
+  export default function SeoHeaders({ username }: Props) {
     const title = pageTitle(username)
     const description =
       'Generate your custom image from your Audius username. A fun experiment of image generation.'
