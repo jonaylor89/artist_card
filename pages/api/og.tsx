@@ -55,6 +55,9 @@ export default async function handler(
   } 
 
   const user = await res.json()
+  if (user === undefined || user.name === undefined) {
+    return errorResponse('something went wrong with fetching audius data')
+  }
 
   try {
     return new ImageResponse(

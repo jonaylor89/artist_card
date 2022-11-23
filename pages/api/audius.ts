@@ -52,12 +52,10 @@ export default async function handler(req: NextRequest) {
     }
 
     const json = await res.json()
-    console.log('json res', json)
     if (json.data === undefined || json.data.length === 0) {
         return NextResponse.json({})
     }
     const user = json.data[0]
-
     if (user === undefined || user === null) {
         console.log('user is null')
         return NextResponse.json({})
