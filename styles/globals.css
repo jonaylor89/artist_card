@@ -13,7 +13,10 @@ input[type="text"] {
   width: 100%;
   padding: 0.5rem 0.75rem;
   border-radius: 5px;
-  background-color: black;
+  /* background-color: black; */
+  background-color: #222222;
+  outline: none;
+  border: black;
 }
 
 input[type="checkbox"] {
@@ -80,6 +83,12 @@ select:focus,
 textarea:focus {
   outline: auto;
   border-color: #cc0fe0;
+}
+
+input[type="text"]:read-only {
+  background-color: #222222;
+  outline: none;
+  border: black;
 }
 
 button {

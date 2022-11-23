@@ -18,43 +18,49 @@ export default function Output({ username }:
         {/* <div className={styles.loadingText}>
                     Loading… (can take a few seconds)
                 </div> */}
-        <div className={styles.image}>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: htmlCodeForUserName(username, dark, removeLink),
-            }} />
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <a
+            href={imageUrlForUsername(username, dark, removeLink)}
+            target="_blank"
+            rel="noopener noreferrer">
+            <img 
+              className={styles.image}
+              src={imageUrlForUsername(username, dark, removeLink)} 
+              alt={imageAltForUsername(username)} 
+              width={600}
+              />
+
+          </a>
         </div>
 
         <div className={styles.configurations}>
-          <div className={styles.row}>
-            <div className={styles.configurationItem}>
-              <input
-                id="dark"
-                type="checkbox"
-                checked={dark}
-                onChange={(e) => setDark(e.target.checked)}
-              />
-              <label htmlFor="dark">Dark mode</label>
-            </div>
-            <div className={styles.configurationItem}>
-              <input
-                id="removeLink"
-                type="checkbox"
-                checked={removeLink}
-                onChange={(e) => setRemoveLink(e.target.checked)}
-              />
-              <label htmlFor="removeLink">
-                Remove watermark link
-              </label>
-            </div>
-            <a
-              href={imageUrlForUsername(username, dark, removeLink)}
-              download={`${username}-audius-business-card.png`}
-              className={styles.downloadButton}
-            >
-              Download
-            </a>
+          <div className={styles.configurationItem}>
+            <input
+              id="dark"
+              type="checkbox"
+              checked={dark}
+              onChange={(e) => setDark(e.target.checked)}
+            />
+            <label htmlFor="dark">Dark mode</label>
           </div>
+          <div className={styles.configurationItem}>
+            <input
+              id="removeLink"
+              type="checkbox"
+              checked={removeLink}
+              onChange={(e) => setRemoveLink(e.target.checked)}
+            />
+            <label htmlFor="removeLink">
+              Remove watermark link
+            </label>
+          </div>
+          <a
+            href={imageUrlForUsername(username, dark, removeLink)}
+            download={`${username}-audius-business-card.png`}
+            className={styles.downloadButton}
+          >
+            Download
+          </a>
         </div>
 
 
