@@ -10,8 +10,6 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 export default function Home() {
   const [username, setUsername] = useState('')
-  const [dark, setDark] = useState(false)
-  const [removeLink, setRemoveLink] = useState(false)
   const [tempUsername, setTempUsername] = useState(username)
 
   return (
@@ -48,33 +46,8 @@ export default function Home() {
           </form>
         </div>
 
-        <div className={styles.configurations}>
-          <div className={styles.row}>
-            <div className={styles.configurationItem}>
-              <input
-                id="dark"
-                type="checkbox"
-                checked={dark}
-                onChange={(e) => setDark(e.target.checked)}
-              />
-              <label htmlFor="dark">Dark mode</label>
-            </div>
-            <div className={styles.configurationItem}>
-              <input
-                id="removeLink"
-                type="checkbox"
-                checked={removeLink}
-                onChange={(e) => setRemoveLink(e.target.checked)}
-              />
-              <label htmlFor="removeLink">
-                Remove <strong>audius.co</strong> link
-              </label>
-            </div>
-          </div>
-        </div>
-
         {username && (
-          <Output username={username} dark={dark} removeLink={removeLink} />
+          <Output username={username} />
         )}
       </main>
 
@@ -92,38 +65,4 @@ export default function Home() {
       </footer>
     </div>
   )
-}
-
-function imageUrlForUsername(
-  username: string,
-  dark: boolean,
-  removeLink: boolean
-) {
-  return `${baseUrl}/api/og?username=${encodeURIComponent(
-    username
-  )}&dark=${encodeURIComponent(dark)}&removeLink=${encodeURIComponent(removeLink)}`
-}
-
-function imageAltForUsername(username: string) {
-  return `${username}’s Audius image`
-}
-
-function htmlCodeForUserName(
-  username: string,
-  dark: boolean,
-  removeLink: boolean
-) {
-  const imageUrl = imageUrlForUsername(username, dark, removeLink)
-  const imageAlt = imageAltForUsername(username)
-  return `<a href="${imageUrl}" target="_blank" rel="noopener noreferrer"><img src="${imageUrl}" alt="${imageAlt}" width="600" height="314" />`
-}
-
-function markdownCodeForUserName(
-  username: string,
-  dark: boolean,
-  removeLink: boolean
-) {
-  const imageUrl = imageUrlForUsername(username, dark, removeLink)
-  const imageAlt = imageAltForUsername(username)
-  return `![${imageAlt}](${imageUrl})`
 }

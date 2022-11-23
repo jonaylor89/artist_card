@@ -1,15 +1,16 @@
 
+import { useState } from 'react';
 import styles from '../../styles/Home.module.css'
 import CopyInput from './copy-input';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
-export default function Output({ username, dark, removeLink }:
+export default function Output({ username }:
     {
         username: string
-        dark: boolean
-        removeLink: boolean
     }) {
+    const [dark, setDark] = useState(false)
+    const [removeLink, setRemoveLink] = useState(false)
 
     return (
         <>
@@ -24,13 +25,40 @@ export default function Output({ username, dark, removeLink }:
                         }} />
                 </div>
 
-                <a
-                    href={imageUrlForUsername(username, dark, removeLink)}
-                    download={`${username}-audius-business-card.png`}
-                    className={styles.downloadButton}
-                >
-                    Download
-                </a>
+                <div className={styles.configurations}>
+                    <div className={styles.row}>
+                        <div className={styles.configurationItem}>
+                            <input
+                                id="dark"
+                                type="checkbox"
+                                checked={dark}
+                                onChange={(e) => setDark(e.target.checked)}
+                            />
+                            <label htmlFor="dark">Dark mode</label>
+                        </div>
+                        <div className={styles.configurationItem}>
+                            <input
+                                id="removeLink"
+                                type="checkbox"
+                                checked={removeLink}
+                                onChange={(e) => setRemoveLink(e.target.checked)}
+                            />
+                            <label htmlFor="removeLink">
+                                Remove <strong>audius.co</strong> link
+                            </label>
+                        </div>
+                        <a
+                            href={imageUrlForUsername(username, dark, removeLink)}
+                            download={`${username}-audius-business-card.png`}
+                            className={styles.downloadButton}
+                        >
+                            Download
+                        </a>
+                    </div>
+                </div>
+
+
+
 
                 <div className={styles.outputLinks}>
                     <div className={styles.outputLink}>

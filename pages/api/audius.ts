@@ -29,6 +29,10 @@ export default async function handler(req: NextRequest) {
         'Accept': 'application/json'
     };
 
+    console.log('new request: ', JSON.stringify({
+        username,
+    }))
+
     // hit Audius API
     const sample = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)]
     const host = await fetch('https://api.audius.co')
@@ -36,32 +40,47 @@ export default async function handler(req: NextRequest) {
         .then(j => j.data)
         .then(d => sample(d))
 
-    const res = await fetch(`${host}/users?handle=${username}?app_name=${APP_NAME}`, {
+    const url = `${host}/users?handle=${username}`
+    console.log('audius request url', url)
+    const res = await fetch(url, {
         method: 'GET',
         headers: headers
     })
 
-    if (res.status === 200) {
-        const user = (await res.json()).data[0]
-        const creatorNode = user.creator_node_endpoint.split(",")[0]
-        const picSizes = user.profile_picture_sizes
-        const avatarURL = `${creatorNode}/content/${picSizes}/480x480.jpg`
-
-        return NextResponse.json(
-            {
-                name: user.name || '',
-                bio: user.bio || '',
-                handle: user.handle || '',
-                track_count: user.track_count || 0,
-                location: user.location || '',
-                followee_count: user.followee_count || 0,
-                follower_count: user.follower_count || 0,
-                avatar_url: avatarURL || defaultAvatarUrl,
-                supporter_count: user.supporter_count || 0,
-                supporting_count: user.supporting_count || 0,
-                created_at: user.created_at || (new Date()).toISOString(),
-                is_verified: user.is_verified || false
-            }
-        )
+    if (res.status !== 200) {
+        return NextResponse.json({})
     }
+
+    const json = await res.json()
+    console.log('json res', json)
+    if (json.data === undefined || json.data.length === 0) {
+        return NextResponse.json({})
+    }
+    const user = json.data[0]
+
+    if (user === undefined || user === null) {
+        console.log('user is null')
+        return NextResponse.json({})
+    }
+
+    const creatorNode = user.creator_node_endpoint?.split(",")[0]
+    const picSizes = user.profile_picture_sizes
+    const avatarURL = `${creatorNode}/content/${picSizes}/480x480.jpg`
+
+    return NextResponse.json(
+        {
+            name: user.name || '',
+            bio: user.bio || '',
+            handle: user.handle || '',
+            track_count: user.track_count || 0,
+            location: user.location || '',
+            followee_count: user.followee_count || 0,
+            follower_count: user.follower_count || 0,
+            avatar_url: avatarURL || defaultAvatarUrl,
+            supporter_count: user.supporter_count || 0,
+            supporting_count: user.supporting_count || 0,
+            created_at: user.created_at || (new Date()).toISOString(),
+            is_verified: user.is_verified || false
+        }
+    )
 }
