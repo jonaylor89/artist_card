@@ -59,7 +59,7 @@ export default async function handler(req: NextRequest) {
                 avatar_url: avatarURL || defaultAvatarUrl,
                 supporter_count: user.supporter_count || 0,
                 supporting_count: user.supporting_count || 0,
-                created_at: user.created_at || new Date().toISOString(),
+                created_at: user.created_at || (new Date()).toISOString(),
                 is_verified: user.is_verified || false
             }
         )
