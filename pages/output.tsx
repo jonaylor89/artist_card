@@ -14,7 +14,7 @@ export default function Output({ username }:
 
     return (
         <>
-            <div className={styles.imageContainer}>
+            <div>
                 <div className={styles.loadingText}>
                     Loading… (can take a few seconds)
                 </div>

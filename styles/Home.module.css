@@ -95,9 +95,7 @@
   margin: 1rem 0rem;
 }
 
-.imageContainer {
-  position: relative;
-}
+
 
 .image {
   position: relative;
@@ -110,6 +108,7 @@
   inset: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .footer {
