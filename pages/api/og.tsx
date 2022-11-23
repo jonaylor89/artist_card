@@ -133,6 +133,12 @@ export default async function handler(
                   </div>
                 )}
                 <div tw="flex mt-8 mb-1">
+                🎵{' '}
+                  {user.track_count === 1
+                    ? `${user.track_count} track`
+                    : `${user.track_count.toLocaleString('en-US')} tracks`}{' '}
+                </div>
+                <div tw="flex mb-1">
                   👥{' '}
                   {user.follower_count === 1
                     ? `${user.follower_count} follower`
