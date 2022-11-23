@@ -48,20 +48,6 @@ export default async function handler(
     noBorder,
   }))
 
-  const fakeUser = {
-    artistName: 'Johannes',
-    handle: username,
-    bio: 'da beep boops',
-    trackCount: 15,
-    followers: 5_000,
-    supporters: 8,
-    supporting: 8,
-    created_at: "2021-08-19T14:03:15 Z",
-    is_verified: false,
-    location: "BCN",
-    avatar_url: "https://creatornode2.audius.co/ipfs/QmUkJ9mZtdc63mneA31hoWRn3ZfazqSaXYE76Qc5ywCVSG/480x480.jpg",
-  }
-
   const res = await fetch(`${baseUrl}/api/audius?username=${username}`)
   
   if (res.status !== 200) {
