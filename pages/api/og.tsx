@@ -63,10 +63,11 @@ export default async function handler(
 
   const res = await fetch(`${baseUrl}/api/audius?username=${username}`)
   
-  if (res.status === 200) {
-    const user = await res.json()
-    console.log(user)
-  }
+  if (res.status !== 200) {
+    return errorResponse('something went wrong with fetching audius data')
+  } 
+
+  const user = await res.json()
 
   try {
     return new ImageResponse(
@@ -91,13 +92,13 @@ export default async function handler(
               <div tw="flex w-1/3 justify-end pb-12 mr-12">
                 <div tw="flex flex-col items-center">
                   <img
-                    src={fakeUser.avatar_url}
+                    src={user.avatar_url}
                     tw="w-64 h-64 rounded-full shadow-2xl mb-4"
                     style={{ objectPosition: 'center', objectFit: 'cover' }}
                   />
                   <div
                     tw={`text-xl ${dark ? 'text-slate-300' : 'text-slate-500'}`}
-                  >{`Since ${new Date(fakeUser.created_at).toLocaleDateString(
+                  >{`Since ${new Date(user.created_at).toLocaleDateString(
                     'en-US',
                     {
                       month: 'long',
@@ -107,7 +108,7 @@ export default async function handler(
                 </div>
               </div>
               <div tw="flex w-2/3 flex-col pr-16">
-                <div tw="text-6xl">{fakeUser.artistName}</div>
+                <div tw="text-6xl">{user.name}</div>
                 <div
                   tw={`text-3xl mb-2 flex ${dark ? `text-slate-300` : `text-slate-400`
                     }`}
@@ -115,11 +116,11 @@ export default async function handler(
                   <span tw={dark ? `text-slate-500` : `text-slate-400`}>
                     audius.co/
                   </span>
-                  {fakeUser.handle}
+                  {user.handle}
                 </div>
-                {fakeUser.bio && (
+                {user.bio && (
                   <div tw="text-2xl">
-                    {fakeUser.bio
+                    {user.bio
                       .replace(
                         /([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g,
                         ''
@@ -129,13 +130,13 @@ export default async function handler(
                 )}
                 <div tw="flex mb-2 mt-8">
                   👥{' '}
-                  {fakeUser.followers === 1
-                    ? `${fakeUser.followers} follower`
-                    : `${fakeUser.followers.toLocaleString('en-US')} followers`}{' '}
+                  {user.follower_count === 1
+                    ? `${user.follower_count} follower`
+                    : `${user.follower_count.toLocaleString('en-US')} followers`}{' '}
                 </div>
                 <div tw="flex flex-wrap">
-                  {fakeUser.location && (
-                    <div tw="flex mb-2 mr-4">📍 {fakeUser.location}</div>
+                  {user.location && (
+                    <div tw="flex mb-2 mr-4">📍 {user.location}</div>
                   )}
                 </div>
               </div>
@@ -144,7 +145,7 @@ export default async function handler(
               <img
                 src={`https://api.qrserver.com/v1/create-qr-code/?size=84x84&bgcolor=${dark ? '0f172a' : 'fff'
                   }&color=${dark ? 'cbd5e1' : '64748b'
-                  }&data=${`https://audius.co/${fakeUser.handle}`}`}
+                  }&data=${`https://audius.co/${user.handle}`}`}
               />
             </div>
           </div>
