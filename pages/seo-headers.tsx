@@ -36,5 +36,5 @@ export default function SeoHeaders({ username }: Props) {
 }
 
 function pageTitle(username: any): string {
-  return `${username ? `${username} · ` : ''}Musician Business Card`
+  return `${username ? `${username} · ` : ''}Artist Business Card`
 }
