@@ -68,9 +68,9 @@ input[type="checkbox"]:focus {
 }
 
 input[type="checkbox"]:disabled {
-  --form-control-color: var(--form-control-disabled);
+  --form-control-color: #ccc;
 
-  color: var(--form-control-disabled);
+  color: #ccc;
   cursor: not-allowed;
 }
 

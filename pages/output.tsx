@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import styles from '../../styles/Home.module.css'
+import styles from '../styles/Home.module.css'
 import CopyInput from './copy-input';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
@@ -14,11 +14,11 @@ export default function Output({ username }:
 
     return (
         <>
-            <div className="relative">
-                <div className="z-0 absolute inset-0 flex justify-center items-center text-slate-400 text-sm">
+            <div className={styles.imageContainer}>
+                <div className={styles.loadingText}>
                     Loading… (can take a few seconds)
                 </div>
-                <div className="z-10 relative">
+                <div className={styles.image}>
                     <div
                         dangerouslySetInnerHTML={{
                             __html: htmlCodeForUserName(username, dark, removeLink),
@@ -44,7 +44,7 @@ export default function Output({ username }:
                                 onChange={(e) => setRemoveLink(e.target.checked)}
                             />
                             <label htmlFor="removeLink">
-                                Remove <strong>audius.co</strong> link
+                                Remove watermark link
                             </label>
                         </div>
                         <a

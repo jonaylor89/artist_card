@@ -49,14 +49,13 @@ export default async function handler(
   }))
 
   const res = await fetch(`${baseUrl}/api/audius?username=${username}`)
-  
   if (res.status !== 200) {
     return errorResponse('something went wrong with fetching audius data')
   } 
 
   const user = await res.json()
   if (user === undefined || user.name === undefined) {
-    return errorResponse('something went wrong with fetching audius data')
+    return errorResponse('something went wrong with fetching audius data - no user')
   }
 
   try {
@@ -74,7 +73,7 @@ export default async function handler(
                   Get your card at
                 </span>{' '}
                 <span tw={`${dark ? `text-slate-300` : `text-slate-500`}`}>
-                  card.audius.co
+                  {baseUrl}
                 </span>
               </div>
             )}

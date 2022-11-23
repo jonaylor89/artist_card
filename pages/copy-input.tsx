@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import styles from '../../styles/Home.module.css'
+import styles from '../styles/Home.module.css'
 
 export default function CopyInput(props: JSX.IntrinsicElements['input']) {
   const [buttonText, setButtonText] = useState('Copy')
