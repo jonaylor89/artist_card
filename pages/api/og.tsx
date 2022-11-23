@@ -103,12 +103,15 @@ export default async function handler(
                 </div>
               </div>
               <div tw="flex w-2/3 flex-col pr-16">
-                <div tw="flex flex-row items-center text-6xl space-x-3">
+                <div tw="flex flex-row items-center text-6xl">
                   {user.is_verified &&
                     <svg width="36" height="36" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M7.6 21.5L5.7 18.3L2.1 17.5L2.45 13.8L0 11L2.45 8.2L2.1 4.5L5.7 3.7L7.6 0.5L11 1.95L14.4 0.5L16.3 3.7L19.9 4.5L19.55 8.2L22 11L19.55 13.8L19.9 17.5L16.3 18.3L14.4 21.5L11 20.05L7.6 21.5ZM9.95 14.55L15.6 8.9L14.2 7.45L9.95 11.7L7.8 9.6L6.4 11L9.95 14.55Z" fill="#699BF7" />
                     </svg>
-                  } {user.name}
+                  } 
+                  <div tw="ml-2">
+                    {user.name}
+                  </div>
                 </div>
                 <div
                   tw={`text-3xl mb-2 flex ${dark ? `text-slate-300` : `text-slate-400`
@@ -129,12 +132,19 @@ export default async function handler(
                       .trim()}
                   </div>
                 )}
-                <div tw="flex mb-2 mt-8">
+                <div tw="flex mt-8 mb-1">
                   👥{' '}
                   {user.follower_count === 1
                     ? `${user.follower_count} follower`
                     : `${user.follower_count.toLocaleString('en-US')} followers`}{' '}
                   · {`${user.followee_count.toLocaleString('en-US')} following`}
+                </div>
+                <div tw="flex mb-2">
+                💰{' '}
+                  {user.supporter_count === 1
+                    ? `${user.supporter_count} supporter`
+                    : `${user.supporter_count.toLocaleString('en-US')} supporters`}{' '}
+                  · {`${user.supporting_count.toLocaleString('en-US')} supporting`}
                 </div>
                 <div tw="flex flex-wrap">
                   {user.location && (
