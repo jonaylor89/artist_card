@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { ImageResponse } from '@vercel/og'
 import type { NextApiRequest } from 'next'
+import styles from '../../styles/Og.modules.css'
 
 export const config = {
   runtime: 'experimental-edge',
@@ -63,7 +64,7 @@ export default async function handler(
 
   const res = await fetch(`${baseUrl}/api/audius?username=${username}`)
   
-  if (res.status === 200) {
+  if (res.status !== 200) {
     const user = await res.json()
     console.log(user)
   }
