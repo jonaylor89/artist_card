@@ -93,7 +93,7 @@ function imageUrlForUsername(
   dark: boolean,
   removeLink: boolean
 ) {
-  return `${baseUrl}/api/og?username=${encodeURIComponent(
+  return `${baseUrl}/i?username=${encodeURIComponent(
     username
   )}&dark=${encodeURIComponent(dark)}&removeLink=${encodeURIComponent(removeLink)}`
 }

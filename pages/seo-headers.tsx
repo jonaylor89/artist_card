@@ -10,7 +10,7 @@ export default function SeoHeaders({ username }: Props) {
   const twitterAuthor = 'jonaylor89'
   const twitterSite = 'jonaylor89'
   const url = process.env.NEXT_PUBLIC_BASE_URL
-  const imageUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/og?username=${username || 'jonaylor89'
+  const imageUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/i?username=${username || 'jonaylor89'
     }&noBorder`
   return (
     <>
