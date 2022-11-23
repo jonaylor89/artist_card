@@ -15,9 +15,9 @@ export default function Output({ username }:
     return (
         <>
             <div>
-                <div className={styles.loadingText}>
+                {/* <div className={styles.loadingText}>
                     Loading… (can take a few seconds)
-                </div>
+                </div> */}
                 <div className={styles.image}>
                     <div
                         dangerouslySetInnerHTML={{
