@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { ImageResponse } from '@vercel/og'
 import type { NextApiRequest } from 'next'
-import styles from '../../styles/Og.modules.css'
+import styles from '../../styles/Og.module.css'
 
 export const config = {
   runtime: 'experimental-edge',
