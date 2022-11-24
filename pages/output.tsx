@@ -23,7 +23,7 @@ export default function Output({ username }:
             href={imageUrlForUsername(username, dark, removeLink)}
             target="_blank"
             rel="noopener noreferrer">
-            <img 
+            <img
               className={styles.image}
               src={imageUrlForUsername(username, dark, removeLink)} 
               alt={imageAltForUsername(username)} 
