@@ -3,12 +3,13 @@ import { useState } from 'react';
 import styles from '../styles/Home.module.css'
 import CopyInput from './copy-input';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 export default function Output({ username }:
   {
     username: string
   }) {
+
   const [dark, setDark] = useState(false)
   const [removeLink, setRemoveLink] = useState(false)
 
@@ -62,9 +63,6 @@ export default function Output({ username }:
             Download
           </a>
         </div>
-
-
-
 
         <div className={styles.outputLinks}>
           <div className={styles.outputLink}>
