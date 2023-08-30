@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from '../styles/Home.module.css'
 import CopyInput from './copy-input';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin
 
 export default function Output({ username }:
   {
